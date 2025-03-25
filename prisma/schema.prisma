@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Day {
+  id        Int      @id @default(autoincrement())
+  date      DateTime @unique
+  meals     Meal[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Meal {
+  id        Int      @id @default(autoincrement())
+  name      String
+  type      String   // 'breakfast', 'lunch', 'dinner', 'snack'
+  time      DateTime // Store time as DateTime for better handling
+  calories  Int
+  protein   Float
+  carbs     Float    // Fixed spacing
+  fats      Float
+  dayId     Int
+  day       Day      @relation(fields: [dayId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

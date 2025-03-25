@@ -59,7 +59,7 @@ export default function RecommendedIntake() {
               <li><strong>Carbohydrates:</strong> 45-65% of total daily calories</li>
               <li><strong>Fats:</strong> 20-35% of total daily calories</li>
             </ul>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground">
               Note: These are general guidelines. Your specific needs may vary based on your health goals, activity level, and medical conditions.
             </p>
           </CardContent>

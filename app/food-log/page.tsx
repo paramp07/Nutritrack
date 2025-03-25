@@ -240,7 +240,7 @@ export default function FoodLog() {
       </Card>
 
       <div className="space-y-4">
-        <h2 className="text-2xl font-semibold mb-4">Today's Meals</h2>
+        <h2 className="text-2xl font-semibold mb-4">Today&apos;s Meals</h2>
         {meals.map((meal) => (
           <Card key={meal.id}>
             <CardContent className="p-4">

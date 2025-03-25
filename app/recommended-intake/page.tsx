@@ -32,7 +32,7 @@ export default function RecommendedIntake() {
           </CardHeader>
           <CardContent>
             <p className="mb-4">
-              Use the USDA's DRI Calculator to determine your specific nutrient needs based on your age, gender, and activity level.
+              Use the USDA&apos;s DRI Calculator to determine your specific nutrient needs based on your age, gender, and activity level.
             </p>
             <Button asChild>
               <a

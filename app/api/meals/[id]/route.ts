@@ -4,7 +4,7 @@ import { db } from '@/lib/db';
 export async function PUT(
   req: Request,
   { params }: { params: { id: string } }
-) {
+): Promise<Response> {
   try {
     const body = await req.json();
     const { name, type, time, calories, protein, carbs, fats } = body;
@@ -37,7 +37,7 @@ export async function PUT(
 export async function DELETE(
   req: Request,
   { params }: { params: { id: string } }
-) {
+): Promise<Response> {
   try {
     await db.meal.delete({
       where: { id: parseInt(params.id) },

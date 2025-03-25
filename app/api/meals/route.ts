@@ -1,16 +1,34 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { db } from '@/lib/db';
 
 // Handle GET request
-export async function GET() {
+export async function GET(req: Request) {
   console.log("✅ API /api/meals received a GET request");
 
   try {
-    const meals = await db.meal.findMany();
-    return NextResponse.json(meals, { status: 200 });
+    // Get the date from the URL parameters
+    const { searchParams } = new URL(req.url);
+    const dateParam = searchParams.get('date');
+    
+    // Use the provided date or default to today
+    const targetDate = dateParam ? new Date(dateParam) : new Date();
+    targetDate.setHours(0, 0, 0, 0);
+
+    const day = await db.day.upsert({
+      where: { date: targetDate },
+      update: {},
+      create: { date: targetDate },
+    });
+
+    const meals = await db.meal.findMany({
+      where: { dayId: day.id },
+      orderBy: { time: 'asc' },
+    });
+
+    return NextResponse.json(meals);
   } catch (error) {
     console.error("❌ Error fetching meals:", error);
-    return NextResponse.json({ error: "Error fetching meals" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to fetch meals" }, { status: 500 });
   }
 }
 
@@ -28,28 +46,37 @@ export async function POST(req: Request) {
     const body = await req.json();
     console.log("📝 Received Data:", body);
 
-    const { name, type, time, calories, protein, carbs, fats, date } = body;
+    const { name, type, time, calories, protein, carbs, fats } = body;
 
-    if (!name || !type || !time || !calories || !protein || !carbs || !fats || !date) {
+    if (!name || !type || !time || !calories || !protein || !carbs || !fats) {
       console.error("❌ Missing required fields");
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const day = await db.day.upsert({
+      where: { date: today },
+      update: {},
+      create: { date: today },
+    });
+
+    // Create a full ISO date string for the time
+    const [hours, minutes] = time.split(':');
+    const mealTime = new Date(today);
+    mealTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
 
     const meal = await db.meal.create({
       data: {
         name,
         type,
-        time: new Date(time).toISOString(),
+        time: mealTime.toISOString(),
         calories,
         protein,
         carbs,
         fats,
-        day: {
-          connectOrCreate: {
-            where: { date: new Date(date).toISOString() },
-            create: { date: new Date(date).toISOString() },
-          },
-        },
+        dayId: day.id,
       },
     });
 

@@ -1,10 +1,10 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 
 export async function PUT(
-  req: Request,
+  req: NextRequest,
   { params }: { params: { id: string } }
-): Promise<Response> {
+): Promise<NextResponse> {
   try {
     const body = await req.json();
     const { name, type, time, calories, protein, carbs, fats } = body;
@@ -35,9 +35,9 @@ export async function PUT(
 }
 
 export async function DELETE(
-  req: Request,
+  req: NextRequest,
   { params }: { params: { id: string } }
-): Promise<Response> {
+): Promise<NextResponse> {
   try {
     await db.meal.delete({
       where: { id: parseInt(params.id) },

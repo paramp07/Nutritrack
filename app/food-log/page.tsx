@@ -176,40 +176,20 @@ export default function FoodLog() {
                 />
               </div>
             </div>
-
             <div className="grid grid-cols-3 gap-4">
-              <div>
-                <Label htmlFor="protein">Protein (g)</Label>
-                <Input
-                  id="protein"
-                  type="number"
-                  value={newMeal.protein}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewMeal({ ...newMeal, protein: parseFloat(e.target.value) })}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="carbs">Carbs (g)</Label>
-                <Input
-                  id="carbs"
-                  type="number"
-                  value={newMeal.carbs}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewMeal({ ...newMeal, carbs: parseFloat(e.target.value) })}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="fats">Fats (g)</Label>
-                <Input
-                  id="fats"
-                  type="number"
-                  value={newMeal.fats}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewMeal({ ...newMeal, fats: parseFloat(e.target.value) })}
-                  required
-                />
-              </div>
+              {['protein', 'carbs', 'fats'].map((nutrient) => (
+                <div key={nutrient}>
+                  <Label htmlFor={nutrient}>{nutrient.charAt(0).toUpperCase() + nutrient.slice(1)} (g)</Label>
+                  <Input
+                    id={nutrient}
+                    type="number"
+                    value={newMeal[nutrient as keyof typeof newMeal]}
+                    onChange={(e) => setNewMeal({ ...newMeal, [nutrient as keyof typeof newMeal]: parseFloat(e.target.value) })}
+                    required
+                  />
+                </div>
+              ))}
             </div>
-
             <div className="flex gap-2">
               <Button type="submit">
                 {editingMeal ? 'Update Meal' : 'Add Meal'}

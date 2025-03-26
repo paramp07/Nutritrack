@@ -1,25 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-): Promise<NextResponse> {
+export async function PUT(request: NextRequest) {
   try {
-    const body = await req.json();
-    const { name, type, time, calories, protein, carbs, fats } = body;
+    // Extract the id from the URL
+    const { pathname } = request.nextUrl;
+    const segments = pathname.split('/');
+    const id = segments[segments.length - 1];
 
-    // Convert time string to ISO date string
+    const data = await request.json();
+    const { name, type, time, calories, protein, carbs, fats } = data;
+
+    // Create a Date object from the time string
     const [hours, minutes] = time.split(':');
-    const date = new Date();
-    date.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+    const mealTime = new Date();
+    mealTime.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
 
     const updatedMeal = await db.meal.update({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
       data: {
         name,
         type,
-        time: date.toISOString(),
+        time: mealTime.toISOString(),
         calories,
         protein,
         carbs,
@@ -30,22 +32,30 @@ export async function PUT(
     return NextResponse.json(updatedMeal);
   } catch (error) {
     console.error('Error updating meal:', error);
-    return NextResponse.json({ error: 'Failed to update meal' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to update meal' },
+      { status: 500 }
+    );
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-): Promise<NextResponse> {
+export async function DELETE(request: NextRequest) {
   try {
+    // Extract the id from the URL
+    const { pathname } = request.nextUrl;
+    const segments = pathname.split('/');
+    const id = segments[segments.length - 1];
+
     await db.meal.delete({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
     });
 
     return NextResponse.json({ message: 'Meal deleted successfully' });
   } catch (error) {
     console.error('Error deleting meal:', error);
-    return NextResponse.json({ error: 'Failed to delete meal' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to delete meal' },
+      { status: 500 }
+    );
   }
 } 

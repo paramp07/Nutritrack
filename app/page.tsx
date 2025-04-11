@@ -7,7 +7,6 @@ import { Progress } from "@/components/ui/progress"
 import { PlusCircle, Edit2, Trash2, ChevronRight } from "lucide-react"
 import { DaySlider } from "../components/DaySlider"
 import Link from "next/link"
-import { format } from 'date-fns'
 import {
   Dialog,
   DialogContent,

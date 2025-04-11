@@ -32,7 +32,7 @@ export default function RecommendedIntake() {
           </CardHeader>
           <CardContent>
             <p className="mb-4">
-              Use the USDA's DRI Calculator to determine your specific nutrient needs based on your age, gender, and activity level.
+              Use the USDA&apos;s DRI Calculator to determine your specific nutrient needs based on your age, gender, and activity level.
             </p>
             <Button asChild>
               <a
@@ -59,7 +59,7 @@ export default function RecommendedIntake() {
               <li><strong>Carbohydrates:</strong> 45-65% of total daily calories</li>
               <li><strong>Fats:</strong> 20-35% of total daily calories</li>
             </ul>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground">
               Note: These are general guidelines. Your specific needs may vary based on your health goals, activity level, and medical conditions.
             </p>
           </CardContent>

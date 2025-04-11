@@ -39,6 +39,42 @@ const resources = [
     description: "Federal government's nutrition information portal.",
     url: "https://www.nutrition.gov/",
     category: "Government Resources"
+  },
+  {
+    title: "FDA Guide to Reading Food Labels",
+    description: "Comprehensive guide on understanding nutrition facts labels and ingredient lists.",
+    url: "https://www.fda.gov/food/new-nutrition-facts-label/how-understand-and-use-nutrition-facts-label",
+    category: "Food Labels"
+  },
+  {
+    title: "In Defense of Food",
+    description: "Michael Pollan's influential book exploring the principles of healthy eating with the simple advice: 'Eat food. Not too much. Mostly plants.'",
+    url: "https://michaelpollan.com/books/in-defense-of-food/",
+    category: "Recommended Reading"
+  },
+  {
+    title: "CDC Healthy Eating Tips",
+    description: "Guidelines and tips for creating a healthy, balanced diet.",
+    url: "https://www.cdc.gov/healthyweight/healthy_eating/",
+    category: "Healthy Diet Planning"
+  },
+  {
+    title: "Choose MyPlate Food Planning",
+    description: "Tools and resources for planning balanced meals using the MyPlate approach.",
+    url: "https://www.myplate.gov/eat-healthy/what-is-myplate",
+    category: "Healthy Diet Planning"
+  },
+  {
+    title: "How to Read Food Labels (Mayo Clinic)",
+    description: "Expert guidance on decoding nutrition labels and making informed food choices.",
+    url: "https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/nutrition-facts/art-20048426",
+    category: "Food Labels"
+  },
+  {
+    title: "Food Rules: An Eater's Manual",
+    description: "Another essential book by Michael Pollan offering simple, memorable rules for eating wisely.",
+    url: "https://michaelpollan.com/books/food-rules/",
+    category: "Recommended Reading"
   }
 ];
 
